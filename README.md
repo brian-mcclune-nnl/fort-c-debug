@@ -10,6 +10,9 @@ use of Fortran C Interoperability.
 * A C compiler (e.g., `gcc`)
 * A Fortran compiler (e.g., `gfortran`)
 * A CMake installation, version at least 3.10.
+* Visual Studio Code extensions:
+    * [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+    * [Modern Fortran](https://marketplace.visualstudio.com/items?itemName=fortran-lang.linter-gfortran)
 
 ## Building
 
