@@ -14,6 +14,16 @@ use of Fortran C Interoperability.
     * [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
     * [Modern Fortran](https://marketplace.visualstudio.com/items?itemName=fortran-lang.linter-gfortran)
 
+## Setting up the Fortran Language Server
+
+Optional, for language server integration:
+
+```sh
+python -m venv venv
+. venv/bin/activate
+pip install fortls
+```
+
 ## Building
 
 ```sh
