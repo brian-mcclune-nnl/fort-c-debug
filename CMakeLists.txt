@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.26)
 project(fortran_c_example LANGUAGES Fortran C)
 
 # Create library from C source

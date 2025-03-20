@@ -9,10 +9,28 @@ use of Fortran C Interoperability.
 
 * A C compiler (e.g., `gcc`)
 * A Fortran compiler (e.g., `gfortran`)
-* A CMake installation, version at least 3.10.
+* CMake version 3.26 or higher
+* Ninja build system
 * Visual Studio Code extensions:
     * [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
     * [Modern Fortran](https://marketplace.visualstudio.com/items?itemName=fortran-lang.linter-gfortran)
+
+### Installing Ninja
+
+On Ubuntu/Debian:
+```sh
+sudo apt install ninja-build
+```
+
+On macOS:
+```sh
+brew install ninja
+```
+
+On Windows:
+```sh
+choco install ninja
+```
 
 ## Setting up the Fortran Language Server
 
@@ -26,17 +44,46 @@ pip install fortls
 
 ## Building
 
+The project uses CMake presets for building. Three presets are available:
+- `default`: Basic build configuration
+- `debug`: Debug build with debug symbols
+- `release`: Release build with optimizations
+
+All presets use the GNU compiler toolchain (gcc/gfortran) configured for x86_64 Linux systems.
+
+To configure and build:
+
 ```sh
-# Optional: specify C and Fortran compiler
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug \
-    -DCMAKE_C_COMPILER=gcc \
-    -DCMAKE_Fortran_COMPILER=gfortran
+# Configure using a preset (choose one)
+cmake --preset default
+cmake --preset debug
+cmake --preset release
+
+# Build using the same preset
+cmake --build --preset default
+# or
+cmake --build --preset debug
+# or
+cmake --build --preset release
 ```
+
+Each preset will create its build files in a separate directory under `build/`.
+
+### Compiler Flags
+
+The toolchain configuration includes:
+- Architecture-specific: `-march=x86-64`
+- Debug builds: 
+  - C: `-g -O0`
+  - Fortran: `-g -O0 -fcheck=all -fbacktrace`
+- Release builds: `-O3`
 
 ## Running
 
+After building with any preset, you can run the program:
+
 ```console
-$ build/fortran_c_demo
+$ build/<preset-name>/fortran_c_demo
  The answer is:          42
 ```
 
@@ -46,6 +93,8 @@ $ build/fortran_c_demo
 2. Optionally set breakpoints by clicking to the left of line numbers in
    editor windows.
 3. Hit the Play button or F5 to start debugging.
+
+Note: Make sure you've built the project using the `debug` preset for the best debugging experience.
 
 To learn more, visit
 [VS Code debugging documentation](https://code.visualstudio.com/docs/editor/debugging).
