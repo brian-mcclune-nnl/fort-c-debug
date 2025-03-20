@@ -12,13 +12,17 @@ use of Fortran C Interoperability.
 │       └── linux-gnu-x86_64.cmake
 ├── src/
 │   ├── add_one/            # C implementation
-│   │   └── add_one.c
+│   │   ├── add_one.c
+│   │   └── CMakeLists.txt
 │   ├── add_two/            # Fortran module
-│   │   └── add_two.f90
+│   │   ├── add_two.f90
+│   │   └── CMakeLists.txt
 │   ├── add_three/          # Fortran module
-│   │   └── add_three.f90
-│   └── main.f90            # Main program
-├── CMakeLists.txt          # Build configuration
+│   │   ├── add_three.f90
+│   │   └── CMakeLists.txt
+│   ├── main.f90            # Main program
+│   └── CMakeLists.txt      # Source directory build configuration
+├── CMakeLists.txt          # Top-level build configuration
 ├── CMakePresets.json       # CMake presets
 └── README.md
 ```
@@ -27,7 +31,37 @@ The project demonstrates:
 - Fortran-C interoperability
 - Fortran modules
 - Mixed-language debugging
-- CMake configuration with toolchain files
+- Hierarchical CMake configuration
+- Toolchain configuration
+
+## Build System Structure
+
+The project uses a hierarchical CMake structure suitable for large-scale projects:
+
+1. **Top-level `CMakeLists.txt`**:
+   - Project-wide settings and properties
+   - Global compiler configurations
+   - Module directory configuration
+   - IDE integration settings
+
+2. **`src/CMakeLists.txt`**:
+   - Component management
+   - Main executable configuration
+   - Library linking
+   - Module include paths
+
+3. **Component `CMakeLists.txt` files**:
+   - Individual library targets
+   - Component-specific settings
+   - Module output configuration
+   - Encapsulated build logic
+
+This structure scales well for larger projects by:
+- Maintaining clear component boundaries
+- Localizing build configuration
+- Enabling parallel development
+- Facilitating incremental builds
+- Supporting component reuse
 
 # Getting Started
 
