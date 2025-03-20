@@ -1,3 +1,6 @@
 {
-    "fortran.fortls.path": "${workspaceFolder}/venv/bin/fortls"
+    "fortran.fortls.path": "./venv/bin/fortls",
+    "fortran.linter.includePaths": [
+        "${workspaceFolder}/build/**"
+    ]
 }
