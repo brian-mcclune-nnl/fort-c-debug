@@ -1,5 +1,5 @@
-# Create the add_two library
-add_library(add_two_lib
+# Create the add_two library as an object library
+add_library(add_two_lib OBJECT
     add_two.f90
 )
 

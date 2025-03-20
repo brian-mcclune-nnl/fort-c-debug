@@ -1,5 +1,5 @@
-# Create the add_three library
-add_library(add_three_lib
+# Create the add_three library as an object library
+add_library(add_three_lib OBJECT
     add_three.f90
 )
 
