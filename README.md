@@ -56,7 +56,6 @@ The project uses a hierarchical CMake structure suitable for large-scale project
    - Individual library targets
    - Component-specific settings
    - Module output configuration
-   - Position Independent Code settings
    - Encapsulated build logic
 
 This structure scales well for larger projects by:
@@ -65,6 +64,16 @@ This structure scales well for larger projects by:
 - Enabling parallel development
 - Facilitating incremental builds
 - Supporting component reuse
+
+## Build System Features
+
+### Position Independent Code
+
+The project is configured to use Position Independent Code (PIC) globally:
+- All libraries are built with PIC support
+- Executables are built as Position Independent Executables (PIE) where supported
+- Automatic detection of PIE support using CMake's CheckPIESupported module
+- Proper handling across different platforms and compilers
 
 ## Build Targets
 
