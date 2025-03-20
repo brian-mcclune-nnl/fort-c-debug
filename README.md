@@ -3,6 +3,32 @@
 A project for demonstrating debugging of a Fortran program, including
 use of Fortran C Interoperability.
 
+# Project Structure
+
+```
+.
+├── cmake/
+│   └── toolchains/          # Toolchain configurations
+│       └── linux-gnu-x86_64.cmake
+├── src/
+│   ├── add_one/            # C implementation
+│   │   └── add_one.c
+│   ├── add_two/            # Fortran module
+│   │   └── add_two.f90
+│   ├── add_three/          # Fortran module
+│   │   └── add_three.f90
+│   └── main.f90            # Main program
+├── CMakeLists.txt          # Build configuration
+├── CMakePresets.json       # CMake presets
+└── README.md
+```
+
+The project demonstrates:
+- Fortran-C interoperability
+- Fortran modules
+- Mixed-language debugging
+- CMake configuration with toolchain files
+
 # Getting Started
 
 ## Prerequisites
@@ -69,6 +95,19 @@ cmake --build --preset release
 
 Each preset will create its build files in a separate directory under `build/`.
 
+### Build Output Structure
+
+```
+build/<preset>/
+├── modules/           # Generated Fortran module files
+├── CMakeFiles/        # CMake build files
+├── fortran_c_demo     # Main executable
+└── lib/              # Generated libraries
+    ├── libadd_one_lib.a
+    ├── libadd_two_lib.a
+    └── libadd_three_lib.a
+```
+
 ### Compiler Flags
 
 The toolchain configuration includes:
@@ -84,7 +123,11 @@ After building with any preset, you can run the program:
 
 ```console
 $ build/<preset-name>/fortran_c_demo
- The answer is:          42
+Starting with:          10
+After add_one:          11
+After add_two:          12
+After add_three:        13
+Sum of all results:     36
 ```
 
 ## Debugging
