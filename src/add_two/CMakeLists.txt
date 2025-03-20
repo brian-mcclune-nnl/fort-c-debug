@@ -8,3 +8,6 @@ set_target_properties(add_two_lib
     PROPERTIES
     Fortran_MODULE_DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY}
 )
+
+# Enable position independent code for shared library support
+set_property(TARGET add_two_lib PROPERTY POSITION_INDEPENDENT_CODE ON)

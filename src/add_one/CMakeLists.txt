@@ -3,8 +3,5 @@ add_library(add_one_lib
     add_one.c
 )
 
-# If we had public headers, we would set target properties:
-# target_include_directories(add_one_lib
-#     PUBLIC
-#         ${CMAKE_CURRENT_SOURCE_DIR}/include
-# )
+# Enable position independent code for shared library support
+set_property(TARGET add_one_lib PROPERTY POSITION_INDEPENDENT_CODE ON)

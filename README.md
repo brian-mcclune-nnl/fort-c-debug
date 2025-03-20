@@ -32,6 +32,7 @@ The project demonstrates:
 - Fortran modules
 - Mixed-language debugging
 - Hierarchical CMake configuration
+- Static and shared library creation
 - Toolchain configuration
 
 ## Build System Structure
@@ -47,6 +48,7 @@ The project uses a hierarchical CMake structure suitable for large-scale project
 2. **`src/CMakeLists.txt`**:
    - Component management
    - Main executable configuration
+   - Static and shared library creation
    - Library linking
    - Module include paths
 
@@ -54,6 +56,7 @@ The project uses a hierarchical CMake structure suitable for large-scale project
    - Individual library targets
    - Component-specific settings
    - Module output configuration
+   - Position Independent Code settings
    - Encapsulated build logic
 
 This structure scales well for larger projects by:
@@ -62,6 +65,30 @@ This structure scales well for larger projects by:
 - Enabling parallel development
 - Facilitating incremental builds
 - Supporting component reuse
+
+## Build Targets
+
+The project produces several targets:
+
+### Libraries
+- **Static Library** (`adders.a`):
+  - Combines all component functions
+  - Suitable for static linking
+  - Contains both C and Fortran components
+  - Includes all necessary Fortran modules
+
+- **Shared Library** (`adders.so` on Linux):
+  - Same functionality as static library
+  - Dynamically linkable
+  - Proper versioning (1.0.0)
+  - SOVERSION support (ABI version 1)
+  - All components built with PIC
+
+### Executable
+- **fortran_c_demo**:
+  - Example program using the libraries
+  - Defaults to static linking
+  - Can be configured to use shared library
 
 # Getting Started
 
@@ -135,11 +162,28 @@ Each preset will create its build files in a separate directory under `build/`.
 build/<preset>/
 ├── modules/           # Generated Fortran module files
 ├── CMakeFiles/        # CMake build files
-├── fortran_c_demo     # Main executable
-└── lib/              # Generated libraries
-    ├── libadd_one_lib.a
-    ├── libadd_two_lib.a
-    └── libadd_three_lib.a
+├── adders.a          # Static library
+├── adders.so         # Shared library (Linux)
+├── adders.so.1       # Shared library symlink
+├── adders.so.1.0.0   # Shared library (versioned)
+└── fortran_c_demo    # Main executable
+```
+
+### Using the Libraries
+
+To use the static library in another project:
+```cmake
+target_link_libraries(your_target PRIVATE /path/to/adders.a)
+```
+
+To use the shared library:
+```cmake
+target_link_libraries(your_target PRIVATE /path/to/adders.so)
+```
+
+Remember to make the Fortran modules available:
+```cmake
+target_include_directories(your_target PRIVATE /path/to/modules)
 ```
 
 ### Compiler Flags
